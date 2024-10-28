@@ -1,0 +1,14 @@
+# Core deep learning packages
+tensorflow==2.15.0
+keras==2.15.0
+
+# Data processing and visualization
+numpy>=1.19.2
+pandas>=1.1.5
+Pillow>=8.0.0
+matplotlib>=3.3.4
+scikit-learn>=1.5.2
+seaborn>=0.13.2
+
+# Progress bars and utilities
+tqdm>=4.64.0
