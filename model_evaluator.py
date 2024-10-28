@@ -45,12 +45,7 @@ class ModelEvaluator:
         """Create and display evaluation visualizations"""
         self._plot_confusion_matrix(true_labels, predictions)
         self._plot_roc_curve(true_labels, predictions)
-        self._plot_precision_recall_curve(true_labels, predictions)
         self._plot_learning_curves(history)
-        self._plot_feature_importance(self.model, self.test_generator.feature_names)
-        self._plot_misclassified_samples(true_labels, predictions, self.test_generator)
-        self._plot_class_metrics(true_labels, predictions, self.class_names)
-        self._plot_calibration_curve(true_labels, predictions)
     
     def _plot_confusion_matrix(self, true_labels, predictions):
         """Plot confusion matrix"""
@@ -79,17 +74,6 @@ class ModelEvaluator:
         plt.legend(loc="lower right")
         plt.show()
     
-    def _plot_precision_recall_curve(self, true_labels, predictions):
-        """Plot precision-recall curve"""
-        precision, recall, _ = precision_recall_curve(true_labels, predictions)
-        
-        plt.figure(figsize=(8, 6))
-        plt.plot(recall, precision, marker='.')
-        plt.title('Precision-Recall Curve')
-        plt.xlabel('Recall')
-        plt.ylabel('Precision')
-        plt.show()
-    
     def _plot_learning_curves(self, history):
         """Plot training and validation accuracy/loss curves"""
         plt.figure(figsize=(10, 6))
@@ -112,59 +96,5 @@ class ModelEvaluator:
         plt.ylabel('Loss')
         plt.legend()
         
-        plt.tight_layout()
-        plt.show()
-    
-    def _plot_misclassified_samples(self, true_labels, predictions, test_data):
-        """Plot misclassified samples"""
-        misclassified_indices = np.where(true_labels != predictions)[0]
-        
-        if len(misclassified_indices) > 0:
-            fig, axes = plt.subplots(3, 3, figsize=(12, 12))
-            
-            for i, idx in enumerate(misclassified_indices[:9]):
-                row = i // 3
-                col = i % 3
-                axes[row, col].imshow(test_data[idx][0], cmap='gray')
-                axes[row, col].set_title(f'True: {self.class_names[true_labels[idx]]}\nPred: {self.class_names[predictions[idx]]}')
-                axes[row, col].axis('off')
-            
-            plt.tight_layout()
-            plt.show()
-        else:
-            print('No misclassified samples found.')
-    
-    def _plot_class_metrics(self, true_labels, predictions, class_names):
-        """Plot class-specific metrics"""
-        class_metrics = {
-            'Precision': precision_score(true_labels, predictions, average=None),
-            'Recall': recall_score(true_labels, predictions, average=None),
-            'F1-Score': f1_score(true_labels, predictions, average=None)
-        }
-        
-        plt.figure(figsize=(10, 6))
-        
-        for metric_name, metric_values in class_metrics.items():
-            plt.bar(np.arange(len(class_names)), metric_values)
-            plt.xticks(np.arange(len(class_names)), class_names, rotation=90)
-            plt.title(f'{metric_name} per Class')
-            plt.xlabel('Class')
-            plt.ylabel(metric_name)
-            plt.tight_layout()
-            plt.show()
-    
-    def _plot_calibration_curve(self, true_labels, predictions):
-        """Plot calibration curve"""
-        from sklearn.calibration import calibration_curve
-        
-        prob_true, prob_pred = calibration_curve(true_labels, predictions, n_bins=10)
-        
-        plt.figure(figsize=(8, 6))
-        plt.plot([0, 1], [0, 1], 'k--', label='Perfectly Calibrated')
-        plt.plot(prob_pred, prob_true, marker='.')
-        plt.title('Calibration Curve')
-        plt.xlabel('Mean Predicted Probability')
-        plt.ylabel('True Probability')
-        plt.legend()
         plt.tight_layout()
         plt.show()
