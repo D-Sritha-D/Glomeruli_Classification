@@ -126,9 +126,10 @@ The script will:
 5. Implement cross-validation
 
 ## References
-[ResNet and its application to medical image processing: Research progress and challenges](https://www.sciencedirect.com/science/article/pii/S0169260723003255)
-[Deep Learning in Image Classification using Residual Network (ResNet) Variants for Detection of Colorectal Cancer](https://www.sciencedirect.com/science/article/pii/S1877050921000284)
-I have also referred to the following [GitHub Repository](https://github.com/JyXUU/Binary-Classification-of-Glomeruli/tree/main) of Jingyi Xu
+ResNet and its application to medical image processing: Research progress and challenges[link](https://www.sciencedirect.com/science/article/pii/S0169260723003255)
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+
+Deep Learning in Image Classification using Residual Network (ResNet) Variants for Detection of Colorectal Cancer [link](https://www.sciencedirect.com/science/article/pii/S1877050921000284)
+
+
+I have also referred to the following [GitHub Repository](https://github.com/JyXUU/Binary-Classification-of-Glomeruli/tree/main) of Jingyi Xu
