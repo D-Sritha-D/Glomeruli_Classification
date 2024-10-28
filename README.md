@@ -92,17 +92,13 @@ source venv/bin/activate
 
 ### Running Evaluation
 1. Place all the images you want to evaluate in a new folder and give that folder path in the cell under "7.Evaluation on New dataset"
-2. Run the evaluation script:
-```bash
-# Activate virtual environment if not already activated
-source venv/bin/activate  # or .\venv\Scripts\activate for Windows
-```
-3. Run the "7.Evaluation on New dataset" cell
+   
+2. Run the "7.Evaluation on New dataset" cell
 
-4. Your desired prediction csv file will be stored as 'evaluation.csv'
+3. Your desired prediction csv file will be stored as 'evaluation.csv'
 
 The script will:
-- Process all images in the 'evaluation' folder
+- Process all images in the folder storing your images
 - Generate 'evaluation.csv' with predictions
 - CSV format: name,ground_truth (where ground_truth is the predicted class)
 
