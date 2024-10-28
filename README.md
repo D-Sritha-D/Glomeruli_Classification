@@ -7,13 +7,35 @@ In this project, I implemented a deep learning solution to classify glomeruli im
 
 ### Machine Learning Pipeline
 - **Base Architecture**:
-The model is built using ResNet50 as its foundational architecture, leveraging pre-trained ImageNet weights to capture essential visual features efficiently. Transfer learning is implemented by freezing the initial layers of ResNet50, ensuring that the foundational features are retained, while fine-tuning the last 30 layers to adapt specifically to the task at hand. On top of the base model, additional custom layers are incorporated, including dense layers with dropout and batch normalization, which help reduce overfitting and improve generalization. For classification, the model outputs a binary prediction with softmax activation, using the Adam optimizer with categorical crossentropy loss for effective learning and convergence.
+- The model is built on **ResNet50** as its foundational architecture, utilizing **pre-trained ImageNet weights** to efficiently capture essential visual features.
+- **Transfer learning** is applied by:
+  - **Freezing the initial layers** of ResNet50 to retain foundational features.
+  - **Fine-tuning the last 30 layers** to adapt specifically to the current task.
+- **Custom layers** are added on top of the base model:
+  - Dense layers with **dropout** and **batch normalization** to reduce overfitting and enhance generalization.
+- The model outputs a **binary prediction** using **softmax activation** for classification.
+- The **Adam optimizer** is employed along with **categorical crossentropy loss** for efficient learning and convergence.
 
 ### Data Preprocessing
-- This code sets up a data generator for image classification of glomeruli images, designed to feed batches of data into a deep learning model efficiently. It begins by initializing key parameters such as batch size, image dimensions, and whether to shuffle the data, then calculates the number of batches needed based on the dataset size. During data retrieval, the code loads images from a specified directory, resizes them to the target input dimensions, and normalizes their pixel values. It also prepares labels in a one-hot encoded format, ensuring the data is in a format compatible with the model's requirements. Finally, it includes functionality to shuffle the data at the end of each epoch, promoting a more robust and varied training process.
+- Sets up a **data generator for glomeruli image classification**, feeding data batches efficiently into a deep learning model.
+- **Initializes key parameters** such as:
+  - **Batch size**
+  - **Image dimensions**
+  - **Data shuffling** preference
+- **Calculates the required number of batches** based on the dataset size.
+- **Loads images** from a specified directory, then:
+  - **Resizes images** to the target input dimensions.
+  - **Normalizes pixel values** for consistent input scaling.
+- **Prepares labels in one-hot encoded format** to ensure compatibility with the model’s expected input.
+- Includes functionality to **shuffle data at the end of each epoch** to enhance training robustness and variability.
 
 ### Model Training
-- In training, several techniques are applied to optimize model performance and stability. Model checkpointing is used to save the best-performing version throughout the training process. To improve learning efficiency, learning rate reduction is employed whenever performance plateaus, allowing the model to make finer adjustments. Additionally, early stopping helps prevent overfitting by ceasing training once improvements level off. Training history, including both accuracy and loss metrics, is documented and saved to support analysis and evaluation of the model’s performance on training and validation datasets.
+- **Model checkpointing** saves the best-performing version of the model during training.
+- **Learning rate reduction** adjusts the learning rate when performance plateaus, enabling finer adjustments.
+- **Early stopping** halts training to prevent overfitting when improvements stop.
+- **Training history** (accuracy and loss metrics) is recorded and saved to allow:
+  - **Performance analysis** on training and validation datasets.
+  - **Evaluation** of model stability and optimization.
 
 ### Dataset Division
 - Training set: 60%
