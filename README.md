@@ -10,23 +10,23 @@ In this project, I implemented a deep learning solution to classify glomeruli im
 The model is built using ResNet50 as its foundational architecture, leveraging pre-trained ImageNet weights to capture essential visual features efficiently. Transfer learning is implemented by freezing the initial layers of ResNet50, ensuring that the foundational features are retained, while fine-tuning the last 30 layers to adapt specifically to the task at hand. On top of the base model, additional custom layers are incorporated, including dense layers with dropout and batch normalization, which help reduce overfitting and improve generalization. For classification, the model outputs a binary prediction with softmax activation, using the Adam optimizer with categorical crossentropy loss for effective learning and convergence.
 
 ### Data Preprocessing
-This code sets up a data generator for image classification of glomeruli images, designed to feed batches of data into a deep learning model efficiently. It begins by initializing key parameters such as batch size, image dimensions, and whether to shuffle the data, then calculates the number of batches needed based on the dataset size. During data retrieval, the code loads images from a specified directory, resizes them to the target input dimensions, and normalizes their pixel values. It also prepares labels in a one-hot encoded format, ensuring the data is in a format compatible with the model's requirements. Finally, it includes functionality to shuffle the data at the end of each epoch, promoting a more robust and varied training process.
+- This code sets up a data generator for image classification of glomeruli images, designed to feed batches of data into a deep learning model efficiently. It begins by initializing key parameters such as batch size, image dimensions, and whether to shuffle the data, then calculates the number of batches needed based on the dataset size. During data retrieval, the code loads images from a specified directory, resizes them to the target input dimensions, and normalizes their pixel values. It also prepares labels in a one-hot encoded format, ensuring the data is in a format compatible with the model's requirements. Finally, it includes functionality to shuffle the data at the end of each epoch, promoting a more robust and varied training process.
 
 ### Model Training
-In training, several techniques are applied to optimize model performance and stability. Model checkpointing is used to save the best-performing version throughout the training process. To improve learning efficiency, learning rate reduction is employed whenever performance plateaus, allowing the model to make finer adjustments. Additionally, early stopping helps prevent overfitting by ceasing training once improvements level off. Training history, including both accuracy and loss metrics, is documented and saved to support analysis and evaluation of the model’s performance on training and validation datasets.
+- In training, several techniques are applied to optimize model performance and stability. Model checkpointing is used to save the best-performing version throughout the training process. To improve learning efficiency, learning rate reduction is employed whenever performance plateaus, allowing the model to make finer adjustments. Additionally, early stopping helps prevent overfitting by ceasing training once improvements level off. Training history, including both accuracy and loss metrics, is documented and saved to support analysis and evaluation of the model’s performance on training and validation datasets.
 
 ### Dataset Division
-- Training set: 70%
-- Validation set: 15%
-- Test set: 15%
+- Training set: 60%
+- Validation set: 20%
+- Test set: 20%
 
 ## Performance Metrics
-- **Training Accuracy**: 81.82%
-- **AUC**: 0.8863
-- **Precision**: 0.8182
-- **Recall**: 0.8182
-- **Validation Accuracy**: 
-- **Training Time**: ~2 hours on GPU
+- **Training Accuracy**: 94.53%
+- **AUC**: 0.9948
+- **Precision**: 0.8542
+- **Recall**: 0.8241
+- **Validation Accuracy**: 94.18
+- **Training Time**: ~2 hours on M2 mac chip
 
 
 ## Running Instructions
