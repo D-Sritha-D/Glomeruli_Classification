@@ -1,30 +1,19 @@
 # Glomeruli Classification Project
 
 ## Overview
-This project implements a deep learning solution for classifying glomeruli images into two categories: globally sclerotic and non-globally sclerotic. The model uses a fine-tuned ResNet50 architecture with custom top layers for improved performance on this specific medical imaging task.
+In this project, I implemented a deep learning solution to classify glomeruli images into two categories: globally sclerotic and non-globally sclerotic. I developed a fine-tuned ResNet50 architecture and added custom top layers to enhance the model's performance for this specific medical imaging task. I chose to work with ResNet because of it's high performance on medical image data and also it's ability to be more generalized.
 
 ## Approach
 
 ### Machine Learning Pipeline
-- **Base Architecture**: ResNet50 pre-trained on ImageNet
-- **Custom Modifications**:
-  - Enhanced preprocessing layer
-  - Fine-tuning strategy with frozen early layers
-  - Dual dense block structure with residual connections
-  - Dropout layers for regularization
-  - L2 regularization on dense layers
-  - Batch normalization for improved training stability
+- **Base Architecture**:
+The model is built using ResNet50 as its foundational architecture, leveraging pre-trained ImageNet weights to capture essential visual features efficiently. Transfer learning is implemented by freezing the initial layers of ResNet50, ensuring that the foundational features are retained, while fine-tuning the last 30 layers to adapt specifically to the task at hand. On top of the base model, additional custom layers are incorporated, including dense layers with dropout and batch normalization, which help reduce overfitting and improve generalization. For classification, the model outputs a binary prediction with softmax activation, using the Adam optimizer with categorical crossentropy loss for effective learning and convergence.
 
 ### Data Preprocessing
-1. **Image Processing**:
-   - Resizing to 224x224 pixels
-   - RGB conversion
-   - Normalization (pixel values scaled to [0,1])
-   - ResNet50 specific preprocessing
-2. **Augmentation Techniques**:
-   - Implemented via custom data generator
-   - Real-time batch processing
-   - Memory-efficient data handling
+This code sets up a data generator for image classification of glomeruli images, designed to feed batches of data into a deep learning model efficiently. It begins by initializing key parameters such as batch size, image dimensions, and whether to shuffle the data, then calculates the number of batches needed based on the dataset size. During data retrieval, the code loads images from a specified directory, resizes them to the target input dimensions, and normalizes their pixel values. It also prepares labels in a one-hot encoded format, ensuring the data is in a format compatible with the model's requirements. Finally, it includes functionality to shuffle the data at the end of each epoch, promoting a more robust and varied training process.
+
+### Model Training
+In training, several techniques are applied to optimize model performance and stability. Model checkpointing is used to save the best-performing version throughout the training process. To improve learning efficiency, learning rate reduction is employed whenever performance plateaus, allowing the model to make finer adjustments. Additionally, early stopping helps prevent overfitting by ceasing training once improvements level off. Training history, including both accuracy and loss metrics, is documented and saved to support analysis and evaluation of the model’s performance on training and validation datasets.
 
 ### Dataset Division
 - Training set: 70%
@@ -126,10 +115,6 @@ The script will:
 5. Implement cross-validation
 
 ## References
-ResNet and its application to medical image processing: Research progress and challenges[link](https://www.sciencedirect.com/science/article/pii/S0169260723003255)
-
+ResNet and its application to medical image processing: Research progress and challenges [link](https://www.sciencedirect.com/science/article/pii/S0169260723003255)
 
 Deep Learning in Image Classification using Residual Network (ResNet) Variants for Detection of Colorectal Cancer [link](https://www.sciencedirect.com/science/article/pii/S1877050921000284)
-
-
-I have also referred to the following [GitHub Repository](https://github.com/JyXUU/Binary-Classification-of-Glomeruli/tree/main) of Jingyi Xu
