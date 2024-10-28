@@ -90,21 +90,19 @@ source venv/bin/activate
 ```
 2. Run each cell in the glomeruli.classification.ipynb notebook
 
+## Model File
+The trained model is available in the following folder at: [finalModel](https://www.dropbox.com/home/Durga%20Sritha%20Dongla/Glomeruli_Classification_Model)
+
 ### Running Evaluation
 1. Place all the images you want to evaluate in a new folder and give that folder path in the cell under "7.Evaluation on New dataset"
-   
-2. Run the "7.Evaluation on New dataset" cell
-
-3. Your desired prediction csv file will be stored as 'evaluation.csv'
+2. Ensure you have the model downloaded and stored in a folder named: 'model'
+3. Once you have the paths all set, change the paths accordingly in "7.Evaluation on New dataset" and run the cell
+4. Your desired prediction csv file will be stored as 'evaluation.csv'
 
 The script will:
 - Process all images in the folder storing your images
 - Generate 'evaluation.csv' with predictions
 - CSV format: name,ground_truth (where ground_truth is the predicted class)
-
-
-## Model File
-The trained model weights are available at: [finalModel (Google Drive Link)]()
 
 ## Project Insights
 1. **Dataset Challenges**:
@@ -128,9 +126,9 @@ The trained model weights are available at: [finalModel (Google Drive Link)]()
 5. Implement cross-validation
 
 ## References
-- ResNet50: [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
-- 
-- Related Work: [Reference papers in glomeruli classification]
+[ResNet and its application to medical image processing: Research progress and challenges](https://www.sciencedirect.com/science/article/pii/S0169260723003255)
+[Deep Learning in Image Classification using Residual Network (ResNet) Variants for Detection of Colorectal Cancer](https://www.sciencedirect.com/science/article/pii/S1877050921000284)
+I have also referred to the following [GitHub Repository](https://github.com/JyXUU/Binary-Classification-of-Glomeruli/tree/main) of Jingyi Xu
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
