@@ -42,13 +42,32 @@ In this project, I implemented a deep learning solution to classify glomeruli im
 - Validation set: 20%
 - Test set: 20%
 
-## Performance Metrics
-- **Training Accuracy**: 94.53%
-- **AUC**: 0.9948
-- **Precision**: 0.8542
-- **Recall**: 0.8241
-- **Validation Accuracy**: 94.18
-- **Training Time**: ~2 hours on M2 mac chip
+# Model Training Results
+
+## Summary of Results
+
+| Metric                | Model 1: ResNet          | Model 2: DenseNet      |
+|-----------------------|---------------------|---------------------|
+| **Training Accuracy**  | 94.53%              | [Insert Model 2 Accuracy] |
+| **AUC**               | 0.9948              | [Insert Model 2 AUC] |
+| **Precision**         | 0.8542              | [Insert Model 2 Precision] |
+| **Recall**            | 0.8241              | [Insert Model 2 Recall] |
+| **Validation Accuracy**| 94.18%              | [Insert Model 2 Validation Accuracy] |
+| **Training Time**     | ~2 hours on M2 Mac  | [Insert Model 2 Training Time] |
+
+## Details
+
+- **Model 1**: [- **Base Architecture**:
+- The model is built on **ResNet50** as its foundational architecture, utilizing **pre-trained ImageNet weights** to efficiently capture essential visual features.
+- **Transfer learning** is applied by:
+  - **Freezing the initial layers** of ResNet50 to retain foundational features.
+  - **Fine-tuning the last 30 layers** to adapt specifically to the current task.
+- **Custom layers** are added on top of the base model:
+  - Dense layers with **dropout** and **batch normalization** to reduce overfitting and enhance generalization.
+- The model outputs a **binary prediction** using **softmax activation** for classification.
+- The **Adam optimizer** is employed along with **categorical crossentropy loss** for efficient learning and convergence.]
+- **Model 2**: [Add description or details about Model 2 here]
+
 
 
 ## Running Instructions
