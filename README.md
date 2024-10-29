@@ -162,7 +162,7 @@ source venv/bin/activate
 2. Run each cell in the glomeruli.classification.ipynb notebook
 
 ## Model File
-The models are available in the following folder at: [finalModels]([https://www.dropbox.com/home/Durga%20Sritha%20Dongla/Glomeruli_Classification_Model](https://www.dropbox.com/scl/fo/m762o7z0ku13yc17bklij/AIUBy1a3DUZoxh_uq7fGb8U?rlkey=m6cih85n64ksncfang7jbhpun&st=maitg1t1&dl=0))
+The models are available in the following folder at: [finalModels](https://www.dropbox.com/scl/fo/m762o7z0ku13yc17bklij/AIUBy1a3DUZoxh_uq7fGb8U?rlkey=m6cih85n64ksncfang7jbhpun&st=maitg1t1&dl=0)
 
 
 ### Running Evaluation
@@ -176,28 +176,9 @@ The script will:
 - Generate 'evaluation.csv' with predictions
 - CSV format: name,ground_truth (where ground_truth is the predicted class)
 
-## Project Insights
-1. **Dataset Challenges**:
-   - Imbalanced class distribution
-   - Varying image quality
-   - Limited dataset size
-2. **Model Selection**:
-   - ResNet50 showed superior performance compared to other architectures
-   - Transfer learning crucial for good performance
-   - Custom top layers improved accuracy by ~5%
-3. **Training Strategy**:
-   - Early stopping prevented overfitting
-   - Learning rate reduction on plateau improved convergence
-   - Batch size of 32 provided optimal training stability
-
-## Future Improvements
-1. Implement more extensive data augmentation
-2. Explore ensemble methods
-3. Add attention mechanisms
-4. Collect and annotate more training data
-5. Implement cross-validation
 
 ## References
 ResNet and its application to medical image processing: Research progress and challenges [link](https://www.sciencedirect.com/science/article/pii/S0169260723003255)
-
 Deep Learning in Image Classification using Residual Network (ResNet) Variants for Detection of Colorectal Cancer [link](https://www.sciencedirect.com/science/article/pii/S1877050921000284)
+Dense Convolutional Network and Its Application in Medical Image Analysis [link](https://pmc.ncbi.nlm.nih.gov/articles/PMC9060995/)
+Optimization and fine-tuning of DenseNet model for classification of COVID-19 cases in medical imaging [link](https://www.sciencedirect.com/science/article/pii/S2667096821000136)
