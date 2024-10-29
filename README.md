@@ -1,46 +1,102 @@
 # Glomeruli Classification Project
 
 ## Overview
-In this project, I implemented a deep learning solution to classify glomeruli images into two categories: globally sclerotic and non-globally sclerotic. I developed a fine-tuned ResNet50 architecture and added custom top layers to enhance the model's performance for this specific medical imaging task. I chose to work with ResNet because of it's high performance on medical image data and also it's ability to be more generalized.
+This project implements and compares two deep learning architectures (ResNet50 and DenseNet169) for classifying glomeruli images into globally sclerotic and non-globally sclerotic categories.
 
-## Approach
-
-### Machine Learning Pipeline
-- **Base Architecture**:
-- The model is built on **ResNet50** as its foundational architecture, utilizing **pre-trained ImageNet weights** to efficiently capture essential visual features.
-- **Transfer learning** is applied by:
-  - **Freezing the initial layers** of ResNet50 to retain foundational features.
-  - **Fine-tuning the last 30 layers** to adapt specifically to the current task.
-- **Custom layers** are added on top of the base model:
-  - Dense layers with **dropout** and **batch normalization** to reduce overfitting and enhance generalization.
-- The model outputs a **binary prediction** using **softmax activation** for classification.
-- The **Adam optimizer** is employed along with **categorical crossentropy loss** for efficient learning and convergence.
-
-### Data Preprocessing
-- Sets up a **data generator for glomeruli image classification**, feeding data batches efficiently into a deep learning model.
-- **Initializes key parameters** such as:
-  - **Batch size**
-  - **Image dimensions**
-  - **Data shuffling** preference
-- **Calculates the required number of batches** based on the dataset size.
-- **Loads images** from a specified directory, then:
-  - **Resizes images** to the target input dimensions.
-  - **Normalizes pixel values** for consistent input scaling.
-- **Prepares labels in one-hot encoded format** to ensure compatibility with the model’s expected input.
-- Includes functionality to **shuffle data at the end of each epoch** to enhance training robustness and variability.
-
-### Model Training
-- **Model checkpointing** saves the best-performing version of the model during training.
-- **Learning rate reduction** adjusts the learning rate when performance plateaus, enabling finer adjustments.
-- **Early stopping** halts training to prevent overfitting when improvements stop.
-- **Training history** (accuracy and loss metrics) is recorded and saved to allow:
-  - **Performance analysis** on training and validation datasets.
-  - **Evaluation** of model stability and optimization.
+## Dataset
+- **Globally Sclerotic**: 1,054 images
+- **Non-Globally Sclerotic**: 4,704 images
+- **Class Ratio**: 1:4.46
 
 ### Dataset Division
 - Training set: 60%
 - Validation set: 20%
 - Test set: 20%
+
+## Architecture Comparison
+
+### Base Architecture Differences
+
+| Feature | ResNet50 | DenseNet169 |
+|---------|----------|-------------|
+| Base Layers | 50 | 169 |
+| Connection Type | Skip Connections | Dense Connections |
+| Parameter Efficiency | Moderate | High |
+| Feature Reuse | Through Residuals | Through Dense Connections |
+| Trainable Layers | Last 30 unfrozen | Last 50 unfrozen |
+
+### Implementation Differences
+
+#### ResNet Implementation
+```python
+model = Sequential([
+    ResNet50Base,
+    GlobalAveragePooling2D(),
+    Dense(512, activation='relu'),
+    BatchNormalization(),
+    Dropout(0.4),
+    Dense(256, activation='relu'),
+    BatchNormalization(),
+    Dropout(0.3),
+    Dense(2, activation='softmax')
+])
+```
+
+#### DenseNet Implementation
+```python
+model = Sequential([
+    DenseNet169Base,
+    GlobalAveragePooling2D(),
+    Dense(512, activation='relu'),
+    LayerNormalization(),
+    Dense(512, activation='relu', kernel_regularizer=l2(0.01)),
+    LayerNormalization(),
+    Dropout(0.5),
+    Dense(256, activation='relu', kernel_regularizer=l2(0.01)),
+    LayerNormalization(),
+    Dropout(0.4),
+    Dense(2, activation='softmax')
+])
+```
+
+### Key Technical Differences
+
+| Feature | ResNet Implementation | DenseNet Implementation |
+|---------|---------------------|----------------------|
+| Normalization | BatchNormalization | LayerNormalization |
+| Dropout Rates | 0.4, 0.3 | 0.5, 0.4 |
+| Regularization | None | L2 (0.01) |
+| Learning Rate | 1e-4 | 5e-5 |
+| Optimizer | Adam | AdamW with weight decay |
+| Loss Function | Basic Categorical Crossentropy | Categorical Crossentropy with label smoothing |
+| Data Augmentation | Basic | Enhanced with RandomRotation and RandomZoom |
+
+## Training Configuration Comparison
+
+### ResNet Training
+- Simpler training setup
+- Fixed learning rate
+- Basic metrics (accuracy, AUC)
+- Standard optimization
+
+### DenseNet Training
+- Advanced training configuration
+- Adaptive learning rate with weight decay
+- Comprehensive metrics (accuracy, precision, recall, F1, AUC)
+- Custom F1 score monitoring
+- Label smoothing for better generalization
+
+## Implementation Features
+
+### ResNet Model
+```
+Input → Conv → BatchNorm → MaxPool → [ResBlock×N] → GlobalAvgPool → Dense → Output
+```
+
+### DenseNet Model
+```
+Input → Conv → [DenseBlock → Transition]×N → GlobalAvgPool → Dense → Output
+```
 
 # Model Training Results
 
@@ -48,26 +104,11 @@ In this project, I implemented a deep learning solution to classify glomeruli im
 
 | Metric                | Model 1: ResNet          | Model 2: DenseNet      |
 |-----------------------|---------------------|---------------------|
-| **Training Accuracy**  | 94.53%              | [Insert Model 2 Accuracy] |
-| **AUC**               | 0.9948              | [Insert Model 2 AUC] |
-| **Precision**         | 0.8542              | [Insert Model 2 Precision] |
-| **Recall**            | 0.8241              | [Insert Model 2 Recall] |
-| **Validation Accuracy**| 94.18%              | [Insert Model 2 Validation Accuracy] |
-| **Training Time**     | ~2 hours on M2 Mac  | [Insert Model 2 Training Time] |
-
-## Details
-
-- **Model 1**: [- **Base Architecture**:
-- The model is built on **ResNet50** as its foundational architecture, utilizing **pre-trained ImageNet weights** to efficiently capture essential visual features.
-- **Transfer learning** is applied by:
-  - **Freezing the initial layers** of ResNet50 to retain foundational features.
-  - **Fine-tuning the last 30 layers** to adapt specifically to the current task.
-- **Custom layers** are added on top of the base model:
-  - Dense layers with **dropout** and **batch normalization** to reduce overfitting and enhance generalization.
-- The model outputs a **binary prediction** using **softmax activation** for classification.
-- The **Adam optimizer** is employed along with **categorical crossentropy loss** for efficient learning and convergence.]
-- **Model 2**: [Add description or details about Model 2 here]
-
+| **Training Accuracy**  | 94.53%              | 98.18%    |
+| **Precision**         | 0.8542              | 0.9406 |
+| **Recall**            | 0.8241              | 0.9548 |
+| **Validation Accuracy**| 94.18%              | 98% |
+| **Training Time**     | ~2 hours on M2 Mac  | ~1 hours on M2 Mac |
 
 
 ## Running Instructions
@@ -109,7 +150,7 @@ final_glomeruli/
 └── results/                  # Training results and plots
 ```
 
-### Training the Model
+### Training the Models
 1. Activate the virtual environment:
 ```bash
 # For macOS/Linux
@@ -121,7 +162,8 @@ source venv/bin/activate
 2. Run each cell in the glomeruli.classification.ipynb notebook
 
 ## Model File
-The trained model is available in the following folder at: [finalModel](https://www.dropbox.com/home/Durga%20Sritha%20Dongla/Glomeruli_Classification_Model)
+The models are available in the following folder at: [finalModels]([https://www.dropbox.com/home/Durga%20Sritha%20Dongla/Glomeruli_Classification_Model](https://www.dropbox.com/scl/fo/m762o7z0ku13yc17bklij/AIUBy1a3DUZoxh_uq7fGb8U?rlkey=m6cih85n64ksncfang7jbhpun&st=maitg1t1&dl=0))
+
 
 ### Running Evaluation
 1. Place all the images you want to evaluate in a new folder and give that folder path in the cell under "7.Evaluation on New dataset"
