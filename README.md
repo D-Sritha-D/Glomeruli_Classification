@@ -135,18 +135,26 @@ pip install -r requirements.txt
 ```
 final_glomeruli/
 ├── venv/                      # Virtual environment directory
-├── config.py                  # Configuration settings
-├── data_generator.py          # Custom data generator
-├── model_builder.py           # Model architecture definition
-├── model_trainer.py           # Training pipeline
-├── model_evaluator.py         # Evaluation metrics
-├── evaluation.py              # Evaluation script
-├── requirements.txt           # Project dependencies
 ├── data/
 │   ├── globally_sclerotic_glomeruli/
 │   └── non_globally_sclerotic_glomeruli/
+│   └── public.csv
+├── densenet/
+│   ├── densenet_model_builder/
+│   └── densenet_model_trainer/
+├── resnet/
+│   ├── resnet_model_builder/
+│   └── resnet_model_trainer/
+├── config.py                  # Configuration settings
+├── data_analyzer.py           # Visualizes the data and shows all data information
+├── data_generator.py          # Custom data generator
+├── model_evaluator.py         # Evaluation metrics for the trained models
+├── evaluation.py              # Evaluation script for the custom new data
+├── main.ipynb                 # Main Notebook to run the code
+├── requirements.txt           # Project dependencies
+
 ├── model/
-│   └── checkpoints/          # Saved model weights
+│   └── checkpoints/          # Saved model weights 
 └── results/                  # Training results and plots
 ```
 
@@ -159,7 +167,7 @@ source venv/bin/activate
 # For Windows
 .\venv\Scripts\activate
 ```
-2. Run each cell in the glomeruli.classification.ipynb notebook
+2. Run each cell in the main.ipynb notebook
 
 ## Model File
 The models are available in the following folder at: [finalModels](https://www.dropbox.com/scl/fo/m762o7z0ku13yc17bklij/AIUBy1a3DUZoxh_uq7fGb8U?rlkey=m6cih85n64ksncfang7jbhpun&st=maitg1t1&dl=0)
